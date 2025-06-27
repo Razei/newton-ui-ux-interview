@@ -17,16 +17,23 @@ describe('LandingPageComponent', () => {
       .compileComponents();
   }));
 
-  it('should create the app', () => {
+  it('should create the component', async () => {
     const fixture = TestBed.createComponent(LandingPageComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    const component = fixture.debugElement.componentInstance;
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(component).toBeTruthy();
   });
 
-  it('should render AssetManagerComponent', () => {
+  it('should render AssetManagerComponent', async () => {
     const fixture = TestBed.createComponent(LandingPageComponent);
+    const container = fixture.debugElement.nativeElement;
+
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('app-asset-manager')).toBeTruthy();
+    await fixture.whenStable();
+
+    expect(container.querySelector('app-asset-manager')).toBeTruthy();
   });
 });
