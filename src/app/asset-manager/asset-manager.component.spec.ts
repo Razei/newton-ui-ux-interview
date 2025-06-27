@@ -10,7 +10,7 @@ describe('AssetManagerComponent', () => {
     }).compileComponents();
   }));
 
-  it('should create the app', async () => {
+  it('should create the component', async () => {
     const fixture = TestBed.createComponent(AssetManagerComponent);
     const component = fixture.debugElement.componentInstance;
 
