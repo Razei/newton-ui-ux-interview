@@ -4,6 +4,7 @@ import {
   signalStore,
   withComputed,
   withMethods,
+  withState,
 } from '@ngrx/signals';
 import {
   addEntity,
@@ -16,6 +17,9 @@ import { Nullable } from '../../utils/typescript.utils';
 import { Asset } from '../models/asset';
 
 export const AssetStore = signalStore(
+  withState({
+    assetTypes: ['Gift', 'Savings', 'RRSP', 'Other'],
+  }),
   withEntities<Asset>(),
   withComputed(({ entities }) => ({
     totalValue: computed(() =>
