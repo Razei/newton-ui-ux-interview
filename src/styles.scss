@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import './scss/variables';
+
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/variables-dark';
@@ -9,6 +10,9 @@
 @import 'bootstrap/scss/mixins';
 @import 'bootstrap/scss/utilities';
 
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+// https://getbootstrap.com/docs/5.3/customize/color/#generating-utilities
 $all-colors: map-merge-multiple(
   $blues,
   $indigos,
@@ -19,7 +23,8 @@ $all-colors: map-merge-multiple(
   $yellows,
   $greens,
   $teals,
-  $cyans
+  $cyans,
+  $custom-colors
 );
 
 $utilities: map-merge(
@@ -38,3 +43,4 @@ $utilities: map-merge(
 );
 
 @import 'bootstrap/scss/utilities/api';
+@import 'bootstrap/scss/bootstrap';
