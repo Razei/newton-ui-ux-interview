@@ -4,30 +4,39 @@
       class="card-body d-flex gap-5 flex-column align-items-center justify-content-center"
       style="height: 470px"
     >
-      <div
-        class="d-flex gap-4 flex-column align-items-center justify-content-center"
-      >
-        <fa-icon
-          class="text-newton-green"
-          [icon]="['fas', 'hand-holding-dollar']"
-          size="6x"
-        ></fa-icon>
+      @if (assetStore.entities().length > 0) {
+        @for (item of assetStore.entities(); track $index) {
+          <div class="asset-item">
+            <h6 class="asset-title">{{ item.type }}</h6>
+            <p class="asset-value">{{ item.value }}</p>
+          </div>
+        }
+      } @else {
+        <div
+          class="d-flex gap-4 flex-column align-items-center justify-content-center"
+        >
+          <fa-icon
+            class="text-newton-green"
+            [icon]="['fas', 'hand-holding-dollar']"
+            size="6x"
+          ></fa-icon>
 
-        <div class="d-flex flex-column align-items-center">
-          <h5 class="card-title fw-bold fs-3">No Assets</h5>
-          <h6 class="card-subtitle mb-2 fs-5 fw-semibold">
-            You currently don't have any Assets…
-          </h6>
+          <div class="d-flex flex-column align-items-center">
+            <h5 class="card-title fw-bold fs-3">No Assets</h5>
+            <h6 class="card-subtitle mb-2 fs-5 fw-semibold">
+              You currently don't have any Assets…
+            </h6>
+          </div>
         </div>
-      </div>
 
-      <button
-        type="button"
-        class="btn btn-outline-newton-green fw-semibold col-3 rounded-5 btn-lg"
-        (click)="whenAddAssetsButtonClicked()"
-      >
-        Add Assets
-      </button>
+        <button
+          type="button"
+          class="btn btn-outline-newton-green fw-semibold col-3 rounded-5 btn-lg"
+          (click)="whenAddAssetsButtonClicked()"
+        >
+          Add Assets
+        </button>
+      }
     </div>
   </div>
 </div>
