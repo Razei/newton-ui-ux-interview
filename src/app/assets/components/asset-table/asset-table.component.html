@@ -1,5 +1,7 @@
-<form [formGroup]="assetFormGroup()">
-  <table class="table table-borderless">
+<form [formGroup]="assetFormGroup()" class="card rounded-3">
+  <table
+    class="table table-striped table-striped-inverse rounded-3 overflow-hidden"
+  >
     <thead>
       <tr>
         @for (item of tableColumns(); track $index) {
@@ -17,38 +19,47 @@
       ) {
         <tr [formGroupName]="i">
           <td>
-            <select
-              class="form-select"
-              aria-label="Default select example"
-              formControlName="type"
-              ngDefaultControl
-            >
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
+            <div class="input-group">
+              <select
+                id="assetType"
+                class="form-select"
+                aria-label="Asset Type"
+                formControlName="type"
+                ngDefaultControl
+              >
+                @for (type of assetStore.assetTypes(); track $index) {
+                  <option [value]="type">{{ type }}</option>
+                }
+              </select>
+            </div>
 
             @if (
               assetForm.get('type')?.hasError('required') && assetForm.touched
             ) {
-              <span class="text-danger">Please select a type</span>
+              <label class="text-danger" for="assetType"
+                >Please select a type</label
+              >
             }
           </td>
 
           <td>
-            <input
-              type="number"
-              class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              formControlName="value"
-              ngDefaultControl
-            />
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input
+                id="assetValue"
+                type="text"
+                class="form-control"
+                formControlName="value"
+                mask="separator.2"
+                thousandSeparator=","
+                ngDefaultControl
+              />
+            </div>
 
-            @if (
-              assetForm.get('value')?.hasError('required') && assetForm.touched
-            ) {
-              <span class="text-danger">Please enter a value</span>
+            @if (assetForm.touched && assetForm.get('value')?.invalid) {
+              <label class="text-danger" for="assetValue"
+                >Please enter a valid currency</label
+              >
             }
           </td>
 
@@ -68,25 +79,21 @@
           </td>
         </tr>
       }
-
-      <tr>
-        <td attr.colspan="{{ tableColumns().length }}">
-          <div class="d-flex justify-content-end">
-            <button
-              type="button"
-              class="btn btn-link text-decoration-none text-newton-green fw-bold gap-2 d-flex align-items-center"
-              (click)="addEmptyAsset()"
-            >
-              <fa-icon
-                class="text-newton-green"
-                [icon]="['fas', 'circle-plus']"
-                size="lg"
-              ></fa-icon>
-              Add Another Asset
-            </button>
-          </div>
-        </td>
-      </tr>
     </tbody>
   </table>
+
+  <div class="d-flex justify-content-end">
+    <button
+      type="button"
+      class="btn btn-link text-decoration-none text-newton-green fw-bold gap-2 d-flex align-items-center mb-3"
+      (click)="addEmptyAsset()"
+    >
+      <fa-icon
+        class="text-newton-green"
+        [icon]="['fas', 'circle-plus']"
+        size="lg"
+      ></fa-icon>
+      Add Another Asset
+    </button>
+  </div>
 </form>

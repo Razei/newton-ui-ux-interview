@@ -1,3 +1,33 @@
 :host {
   display: block;
+
+  // Invert the table stripe colors to match design requirements
+  .table-striped tr:nth-child(odd) td {
+    --bs-table-bg-type: var(--bs-table-bg);
+  }
+
+  .table-striped tr:nth-child(even) td {
+    background: var(--bs-table-striped-bg);
+  }
+
+  .table {
+    td,
+    th {
+      padding: 0.75rem;
+
+      &:first-child {
+        padding-inline-start: 26px;
+      }
+
+      &:last-child {
+        padding-inline-end: 26px;
+      }
+    }
+
+    tr:last-child {
+      td {
+        border: none;
+      }
+    }
+  }
 }
