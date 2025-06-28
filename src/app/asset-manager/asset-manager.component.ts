@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  Injector,
   signal,
 } from '@angular/core';
 import { AddAssetModalComponent } from '../add-asset-modal/add-asset-modal.component';
@@ -11,6 +12,7 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import { faHandHoldingDollar } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AssetStore } from '../assets/asset.store';
 
 @Component({
   selector: 'app-asset-manager',
@@ -18,10 +20,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './asset-manager.component.html',
   styleUrl: './asset-manager.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [AssetStore],
 })
 export class AssetManagerComponent {
   // #region Dependencies
   readonly modalService = inject(NgbModal);
+  readonly injector = inject(Injector);
+  readonly assetStore = inject(AssetStore);
   // #endregion
 
   constructor(library: FaIconLibrary) {
@@ -29,6 +34,9 @@ export class AssetManagerComponent {
   }
 
   whenAddAssetsButtonClicked() {
-    this.modalService.open(AddAssetModalComponent, { scrollable: true });
+    this.modalService.open(AddAssetModalComponent, {
+      scrollable: true,
+      injector: this.injector,
+    });
   }
 }

@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AssetStore } from '../assets/asset.store';
 
 @Component({
   selector: 'app-add-asset-modal',
@@ -16,6 +17,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AddAssetModalComponent {
   readonly activeModal = inject(NgbActiveModal);
+  readonly assetStore = inject(AssetStore);
 
   readonly name = input('World');
 }
