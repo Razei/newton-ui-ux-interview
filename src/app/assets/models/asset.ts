@@ -1,5 +1,7 @@
+import { Nullable } from '../../utils/typescript.utils';
+
 export type Asset = {
-  id: number;
+  id: string;
   type: string;
-  value: number;
+  value: Nullable<number>;
 };
