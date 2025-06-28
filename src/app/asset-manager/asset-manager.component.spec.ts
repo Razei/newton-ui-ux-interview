@@ -6,8 +6,14 @@ import { AddAssetModalComponent } from '../add-asset-modal/add-asset-modal.compo
 describe('AssetManagerComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [AssetManagerComponent, MockComponent(AddAssetModalComponent)],
-    }).compileComponents();
+      imports: [AssetManagerComponent],
+    })
+      .overrideComponent(AssetManagerComponent, {
+        set: {
+          imports: [MockComponent(AddAssetModalComponent)],
+        },
+      })
+      .compileComponents();
   }));
 
   it('should create the component', async () => {
