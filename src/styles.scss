@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
@@ -9,8 +11,6 @@
 @import 'bootstrap/scss/maps';
 @import 'bootstrap/scss/mixins';
 @import 'bootstrap/scss/utilities';
-
-$theme-colors: map-merge($theme-colors, $custom-colors);
 
 // https://getbootstrap.com/docs/5.3/customize/color/#generating-utilities
 $all-colors: map-merge-multiple(
@@ -24,17 +24,30 @@ $all-colors: map-merge-multiple(
   $greens,
   $teals,
   $cyans,
-  $custom-colors
+  $grays,
+  $custom-colors,
+  $theme-colors
 );
 
-$utilities: map-merge(
+$theme-colors: $all-colors;
+
+$utilities: map.merge(
   $utilities,
   (
-    'color': map-merge(
-        map-get($utilities, 'color'),
+    'color': map.merge(
+        map.get($utilities, 'color'),
         (
-          values: map-merge(
-              map-get(map-get($utilities, 'color'), 'values'),
+          values: map.merge(
+              map.get(map.get($utilities, 'color'), 'values'),
+              ($all-colors)
+            ),
+        )
+      ),
+    'background-color': map.merge(
+        map.get($utilities, 'background-color'),
+        (
+          values: map.merge(
+              map.get(map.get($utilities, 'background-color'), 'values'),
               ($all-colors)
             ),
         )
