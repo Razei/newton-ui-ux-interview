@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AssetManagerComponent } from '../asset-manager/asset-manager.component';
+import { AssetManagerComponent } from '../assets/components/asset-manager/asset-manager.component';
 
 @Component({
   selector: 'app-landing-page',

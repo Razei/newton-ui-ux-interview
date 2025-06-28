@@ -1,7 +1,7 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
-import { LandingPageComponent } from './landing-page.component';
-import { AssetManagerComponent } from '../asset-manager/asset-manager.component';
 import { MockComponent } from 'ng-mocks';
+import { AssetManagerComponent } from '../assets/components/asset-manager/asset-manager.component';
+import { LandingPageComponent } from './landing-page.component';
 
 describe('LandingPageComponent', () => {
   beforeEach(waitForAsync(() => {

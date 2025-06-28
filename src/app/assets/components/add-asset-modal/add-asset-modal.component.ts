@@ -1,16 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FaIconComponent,
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AssetStore } from '../assets/asset.store';
 import { faHandHoldingDollar } from '@fortawesome/free-solid-svg-icons';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AssetStore } from '../../store/asset.store';
 
 @Component({
   selector: 'app-add-asset-modal',

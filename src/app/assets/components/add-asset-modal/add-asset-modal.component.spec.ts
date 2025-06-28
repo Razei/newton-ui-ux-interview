@@ -1,8 +1,8 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
-import { AddAssetModalComponent } from './add-asset-modal.component';
-import { MockProvider } from 'ng-mocks';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { AssetStore } from '../assets/asset.store';
+import { MockProvider } from 'ng-mocks';
+import { AssetStore } from '../../store/asset.store';
+import { AddAssetModalComponent } from './add-asset-modal.component';
 
 describe('AddAssetModalComponent', () => {
   beforeEach(waitForAsync(() => {

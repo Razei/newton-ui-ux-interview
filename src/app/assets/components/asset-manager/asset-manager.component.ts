@@ -3,16 +3,15 @@ import {
   Component,
   inject,
   Injector,
-  signal,
 } from '@angular/core';
-import { AddAssetModalComponent } from '../add-asset-modal/add-asset-modal.component';
 import {
   FaIconComponent,
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 import { faHandHoldingDollar } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AssetStore } from '../assets/asset.store';
+import { AssetStore } from '../../store/asset.store';
+import { AddAssetModalComponent } from '../add-asset-modal/add-asset-modal.component';
 
 @Component({
   selector: 'app-asset-manager',

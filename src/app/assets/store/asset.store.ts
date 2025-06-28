@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import {
   patchState,
   signalStore,
@@ -5,8 +6,7 @@ import {
   withMethods,
 } from '@ngrx/signals';
 import { addEntity, removeEntity, withEntities } from '@ngrx/signals/entities';
-import { Asset } from './asset';
-import { computed } from '@angular/core';
+import { Asset } from '../models/asset';
 
 export const AssetStore = signalStore(
   withEntities<Asset>(),
