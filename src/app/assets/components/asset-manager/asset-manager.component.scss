@@ -3,6 +3,22 @@
 
   .asset-manager-card {
     width: 850px;
+  }
+
+  .asset-manager-empty-state {
     min-height: 470px;
+  }
+
+  // Invert the table stripe colors to match design requirements
+  .table-striped tr:nth-child(odd) td {
+    --bs-table-bg-type: var(--bs-table-bg);
+  }
+
+  .table-striped tr:nth-child(even) td {
+    background: var(--bs-table-striped-bg);
+  }
+
+  .delete-asset {
+    height: 3.5rem;
   }
 }
