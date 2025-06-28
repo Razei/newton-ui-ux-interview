@@ -1,40 +1,41 @@
-<div class="modal-header">
-  <div class="modal-title d-flex align-items-center gap-3">
-    <fa-icon
-      class="text-newton-green"
-      [icon]="['fas', 'hand-holding-dollar']"
-      size="2x"
-    ></fa-icon>
+<form [formGroup]="assetForm" (ngSubmit)="saveAssets()" class="card rounded-3">
+  <div class="modal-header">
+    <div class="modal-title d-flex align-items-center gap-3">
+      <fa-icon
+        class="text-newton-green"
+        [icon]="['fas', 'hand-holding-dollar']"
+        size="2x"
+      ></fa-icon>
 
-    <h4 class="fw-bold m-0 fs-5">Add Assets</h4>
+      <h4 class="fw-bold m-0 fs-5">Add Assets</h4>
+    </div>
+
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="activeModal.dismiss('Cross click')"
+    ></button>
   </div>
 
-  <button
-    type="button"
-    class="btn-close"
-    aria-label="Close"
-    (click)="activeModal.dismiss('Cross click')"
-  ></button>
-</div>
+  <div class="modal-body">
+    <app-asset-table [assetFormGroup]="assetForm"></app-asset-table>
+  </div>
 
-<div class="modal-body">
-  <app-asset-table [assetFormGroup]="assetForm"></app-asset-table>
-</div>
+  <div class="modal-footer d-flex justify-content-between">
+    <button
+      type="button"
+      class="btn btn-outline-dark fw-bold rounded-5 col-2"
+      (click)="activeModal.close('Close click')"
+    >
+      Close
+    </button>
 
-<div class="modal-footer d-flex justify-content-between">
-  <button
-    type="button"
-    class="btn btn-outline-dark fw-bold rounded-5 col-2"
-    (click)="activeModal.close('Close click')"
-  >
-    Close
-  </button>
-
-  <button
-    type="button"
-    class="btn btn-outline-newton-green fw-bold rounded-5 col-2"
-    (click)="saveAssets()"
-  >
-    Save
-  </button>
-</div>
+    <button
+      type="submit"
+      class="btn btn-outline-newton-green fw-bold rounded-5 col-2"
+    >
+      Save
+    </button>
+  </div>
+</form>

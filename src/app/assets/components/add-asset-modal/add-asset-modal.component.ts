@@ -1,5 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import {
   FaIconComponent,
   FaIconLibrary,
@@ -13,20 +18,30 @@ import { AssetTableComponent } from '../asset-table/asset-table.component';
 
 @Component({
   selector: 'app-add-asset-modal',
-  imports: [FaIconComponent, AssetTableComponent],
+  imports: [FaIconComponent, AssetTableComponent, ReactiveFormsModule],
   templateUrl: './add-asset-modal.component.html',
   styleUrl: './add-asset-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddAssetModalComponent {
+  // #region Dependencies
   readonly activeModal = inject(NgbActiveModal);
   readonly assetStore = inject(AssetStore);
-  readonly assetForm = new FormGroup<AssetFormArray>({
-    assets: new FormArray<AssetFormGroup>([createNewAssetFormGroup()]),
-  });
+  // #endregion
+
+  readonly assetForm = new FormGroup<AssetFormArray>(
+    {
+      assets: new FormArray<AssetFormGroup>([createNewAssetFormGroup()]),
+    },
+    { updateOn: 'submit' }
+  );
 
   constructor(library: FaIconLibrary) {
     library.addIcons(faHandHoldingDollar);
+  }
+
+  get assetFormArray() {
+    return this.assetForm.get('assets') as FormArray<AssetFormGroup>;
   }
 
   saveAssets() {
