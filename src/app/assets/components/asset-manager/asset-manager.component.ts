@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,7 +16,7 @@ import { AddAssetModalComponent } from '../add-asset-modal/add-asset-modal.compo
 
 @Component({
   selector: 'app-asset-manager',
-  imports: [FaIconComponent],
+  imports: [FaIconComponent, CurrencyPipe],
   templateUrl: './asset-manager.component.html',
   styleUrl: './asset-manager.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,5 +38,9 @@ export class AssetManagerComponent {
       scrollable: true,
       injector: this.injector,
     });
+  }
+
+  deleteAsset(assetId: string) {
+    this.assetStore.removeAsset(assetId);
   }
 }

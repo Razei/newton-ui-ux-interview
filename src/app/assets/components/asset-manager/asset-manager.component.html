@@ -2,15 +2,40 @@
   <div class="asset-manager-card card rounded-4">
     <div
       class="card-body d-flex gap-5 flex-column align-items-center justify-content-center"
-      style="height: 470px"
     >
       @if (assetStore.entities().length > 0) {
-        @for (item of assetStore.entities(); track $index) {
+        @for (
+          item of assetStore.entities();
+          track $index;
+          let i = $index;
+          let count = $count
+        ) {
           <div class="asset-item">
             <h6 class="asset-title">{{ item.type }}</h6>
-            <p class="asset-value">{{ item.value }}</p>
+            <p class="asset-value">{{ item.value | currency }}</p>
+            <button
+              type="button"
+              class="btn btn-secondary rounded-5 btn-md"
+              (click)="deleteAsset(item.id)"
+            >
+              <fa-icon
+                class="text-red"
+                [icon]="['fas', 'trash-can']"
+                size="sm"
+              ></fa-icon>
+            </button>
           </div>
         }
+
+        <span>Total: {{ assetStore.totalValue() | currency }}</span>
+
+        <button
+          type="button"
+          class="btn btn-outline-newton-green fw-semibold col-3 rounded-5 btn-lg"
+          (click)="whenAddAssetsButtonClicked()"
+        >
+          Add Assets
+        </button>
       } @else {
         <div
           class="d-flex gap-4 flex-column align-items-center justify-content-center"
