@@ -36,8 +36,8 @@ export const AssetStore = signalStore(
         )
       );
     },
-    removeAsset(asset: Asset): void {
-      patchState(store, removeEntity(asset.id));
+    removeAsset(assetId: string): void {
+      patchState(store, removeEntity(assetId));
     },
   }))
 );
