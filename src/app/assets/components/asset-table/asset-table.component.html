@@ -20,13 +20,19 @@
         <tr [formGroupName]="i">
           <td>
             <div class="input-group">
+              @let isEmpty = !selectInput.value;
+
               <select
+                #selectInput
                 id="assetType"
                 class="form-select"
+                [ngClass]="{ 'default-select': isEmpty }"
                 aria-label="Asset Type"
                 formControlName="type"
                 ngDefaultControl
               >
+                <option value="" disabled selected>— Select —</option>
+
                 @for (type of assetStore.assetTypes(); track $index) {
                   <option [value]="type">{{ type }}</option>
                 }
@@ -44,7 +50,8 @@
 
           <td>
             <div class="input-group">
-              <span class="input-group-text">$</span>
+              <!-- There is a bug with bg -->
+              <span class="input-group-text bg-newton-disabled">$</span>
               <input
                 id="assetValue"
                 type="text"
@@ -52,6 +59,8 @@
                 formControlName="value"
                 mask="separator.2"
                 thousandSeparator=","
+                decimalMarker="."
+                [leadZero]="true"
                 ngDefaultControl
               />
             </div>
@@ -63,12 +72,19 @@
             }
           </td>
 
-          <td class="vertical-align-middle">
+          <td class="vertical-align-middle" width="56px">
+            @let isOnlyRow = count === 1;
+
             <button
+              [ngClass]="
+                isOnlyRow
+                  ? 'btn-newton-disabled text-newton-disabled-text'
+                  : 'btn-danger'
+              "
               type="button"
-              class="btn btn-secondary rounded-5 btn-md"
+              class="btn border rounded-5 btn-md"
               (click)="deleteAsset(i)"
-              [disabled]="count === 1"
+              [disabled]="isOnlyRow"
             >
               <fa-icon
                 class="text-red"
@@ -85,7 +101,7 @@
   <div class="d-flex justify-content-end">
     <button
       type="button"
-      class="btn btn-link text-decoration-none text-newton-green fw-bold gap-2 d-flex align-items-center mb-3"
+      class="btn btn-link text-decoration-none text-newton-green fw-bold gap-2 d-flex align-items-center mb-3 me-3"
       (click)="addEmptyAsset()"
     >
       <fa-icon

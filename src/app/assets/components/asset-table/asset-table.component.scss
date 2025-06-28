@@ -30,4 +30,14 @@
       }
     }
   }
+
+  select {
+    &.default-select {
+      color: var(--bs-newton-disabled-text);
+
+      option:not(:first-of-type) {
+        color: var(--bs-black);
+      }
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,7 +22,7 @@ import {
 } from '../add-asset-modal/add-asset-modal.component';
 @Component({
   selector: 'app-asset-table',
-  imports: [ReactiveFormsModule, FaIconComponent, NgxMaskDirective],
+  imports: [ReactiveFormsModule, FaIconComponent, NgxMaskDirective, NgClass],
   templateUrl: './asset-table.component.html',
   styleUrl: './asset-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
