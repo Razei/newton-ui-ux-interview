@@ -1,7 +1,5 @@
 <form [formGroup]="assetFormGroup()" class="card rounded-3">
-  <table
-    class="table table-striped table-striped-inverse rounded-3 overflow-hidden"
-  >
+  <table class="table table-striped rounded-3 overflow-hidden">
     <thead>
       <tr>
         @for (item of tableColumns(); track $index) {
@@ -59,8 +57,6 @@
                 formControlName="value"
                 mask="separator.2"
                 thousandSeparator=","
-                decimalMarker="."
-                [leadZero]="true"
                 ngDefaultControl
               />
             </div>
