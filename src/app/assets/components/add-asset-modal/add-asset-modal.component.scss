@@ -1,3 +1,13 @@
 :host {
   display: block;
+  $padding: 1.25rem;
+
+  .modal-header {
+    --bs-modal-header-padding: #{$padding};
+  }
+
+  .modal-body,
+  .modal-footer {
+    --bs-modal-padding: #{$padding};
+  }
 }
