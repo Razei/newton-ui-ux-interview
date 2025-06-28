@@ -1,7 +1,9 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
-import { AssetManagerComponent } from './asset-manager.component';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MockComponent } from 'ng-mocks';
 import { AddAssetModalComponent } from '../add-asset-modal/add-asset-modal.component';
+import { AssetManagerComponent } from './asset-manager.component';
 
 describe('AssetManagerComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -10,7 +12,10 @@ describe('AssetManagerComponent', () => {
     })
       .overrideComponent(AssetManagerComponent, {
         set: {
-          imports: [MockComponent(AddAssetModalComponent)],
+          imports: [
+            MockComponent(FaIconComponent),
+            MockComponent(AddAssetModalComponent),
+          ],
         },
       })
       .compileComponents();
@@ -26,32 +31,33 @@ describe('AssetManagerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render AddAssetModalComponent when showModal is true', async () => {
-    const fixture = TestBed.createComponent(AssetManagerComponent);
-    const component = fixture.debugElement.componentInstance;
-    const container = fixture.debugElement.nativeElement;
+  describe('whenAddAssetsButtonClicked', () => {
+    it('should open modal when button clicked', async () => {
+      const fixture = TestBed.createComponent(AssetManagerComponent);
 
-    fixture.detectChanges();
-    await fixture.whenStable();
+      const modalService = fixture.componentRef.injector.get(NgbModal);
+      const spy = spyOn(modalService, 'open').and.callThrough();
 
-    component.showModal.set(true);
+      fixture.detectChanges();
+      await fixture.whenStable();
 
-    fixture.detectChanges();
-    await fixture.whenStable();
+      const button = fixture.debugElement.query(
+        (debugEl) =>
+          debugEl.name === 'button' &&
+          !!(debugEl.nativeElement as HTMLElement).textContent?.match(
+            /Add Asset/i
+          )
+      );
 
-    expect(container.querySelector('app-add-asset-modal')).toBeTruthy();
-  });
+      button.nativeElement.click();
 
-  it('should not render AddAssetModalComponent when showModal is false', async () => {
-    const fixture = TestBed.createComponent(AssetManagerComponent);
-    const component = fixture.debugElement.componentInstance;
-    const container = fixture.debugElement.nativeElement;
+      fixture.detectChanges();
+      await fixture.whenStable();
 
-    fixture.detectChanges();
-    await fixture.whenStable();
-
-    component.showModal.set(false);
-
-    expect(container.querySelector('app-add-asset-modal')).toBeFalsy();
+      expect(spy).toHaveBeenCalledWith(AddAssetModalComponent, {
+        scrollable: true,
+        injector: fixture.componentRef.injector,
+      });
+    });
   });
 });
