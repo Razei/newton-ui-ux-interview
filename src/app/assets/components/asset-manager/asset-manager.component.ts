@@ -37,6 +37,8 @@ export class AssetManagerComponent {
     this.modalService.open(AddAssetModalComponent, {
       scrollable: true,
       injector: this.injector,
+      size: 'lg',
+      windowClass: 'asset-manager-modal',
     });
   }
 
