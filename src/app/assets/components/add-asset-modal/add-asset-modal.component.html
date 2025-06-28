@@ -17,7 +17,9 @@
   ></button>
 </div>
 
-<div class="modal-body">body</div>
+<div class="modal-body">
+  <app-asset-table [assetFormGroup]="assetForm"></app-asset-table>
+</div>
 
 <div class="modal-footer d-flex justify-content-between">
   <button
@@ -31,7 +33,7 @@
   <button
     type="button"
     class="btn btn-outline-newton-green fw-semibold rounded-5"
-    (click)="activeModal.close('Close click')"
+    (click)="saveAssets()"
   >
     Save
   </button>
