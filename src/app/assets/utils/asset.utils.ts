@@ -9,7 +9,10 @@ export const createNewAssetFormGroup = () => {
       validators: [Validators.required],
     }),
     value: new FormControl(null, {
-      validators: [Validators.required],
+      validators: [
+        Validators.required,
+        Validators.pattern('^[0-9]*\.[0-9][0-9]$'),
+      ],
     }),
   });
 };
