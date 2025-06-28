@@ -4,9 +4,13 @@ import {
   inject,
   input,
 } from '@angular/core';
-import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import {
+  FaIconComponent,
+  FaIconLibrary,
+} from '@fortawesome/angular-fontawesome';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AssetStore } from '../assets/asset.store';
+import { faHandHoldingDollar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-asset-modal',
@@ -19,5 +23,7 @@ export class AddAssetModalComponent {
   readonly activeModal = inject(NgbActiveModal);
   readonly assetStore = inject(AssetStore);
 
-  readonly name = input('World');
+  constructor(library: FaIconLibrary) {
+    library.addIcons(faHandHoldingDollar);
+  }
 }
