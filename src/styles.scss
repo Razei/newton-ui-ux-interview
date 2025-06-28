@@ -24,10 +24,11 @@ $all-colors: map-merge-multiple(
   $greens,
   $teals,
   $cyans,
-  $grays,
   $custom-colors,
   $theme-colors
 );
+
+// There is a problem with Gray color utilities generation that will be fixed in v6 so they have not been included https://github.com/twbs/bootstrap/issues/38569
 
 $theme-colors: $all-colors;
 
@@ -39,6 +40,15 @@ $utilities: map.merge(
         (
           values: map.merge(
               map.get(map.get($utilities, 'color'), 'values'),
+              ($all-colors)
+            ),
+        )
+      ),
+    'border': map.merge(
+        map.get($utilities, 'border'),
+        (
+          values: map.merge(
+              map.get(map.get($utilities, 'border'), 'values'),
               ($all-colors)
             ),
         )
