@@ -22,4 +22,11 @@ describe('Validator Utils', () => {
 
     expect(result).toEqual(null);
   });
+
+  it('should return null if decimal value can be parsed as a number', () => {
+    const control = new FormControl('.45');
+    const result = isNaNValidator(control);
+
+    expect(result).toEqual(null);
+  });
 });
