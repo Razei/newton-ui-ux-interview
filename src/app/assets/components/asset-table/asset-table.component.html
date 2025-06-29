@@ -1,5 +1,5 @@
 <form [formGroup]="assetFormGroup()" class="card rounded-3">
-  <table class="table table-striped rounded-3">
+  <table class="table table-striped rounded-3 overflow-hidden">
     <thead>
       <tr>
         @for (item of tableColumns(); track $index) {
@@ -23,7 +23,7 @@
 
               <select
                 #selectInput
-                id="assetType"
+                id="assetType-{{ i }}"
                 class="form-select fs-3"
                 [ngClass]="{ 'default-select': isEmpty }"
                 aria-label="Asset Type"
@@ -41,7 +41,7 @@
             @if (
               assetForm.get('type')?.hasError('required') && assetForm.touched
             ) {
-              <label class="text-danger fs-4" for="assetType"
+              <label class="text-danger fs-4" for="assetType-{{ i }}"
                 >Please select a type</label
               >
             }
@@ -52,7 +52,7 @@
               <!-- There is a bug with bg -->
               <span class="input-group-text bg-newton-disabled fs-3">$</span>
               <input
-                id="assetValue"
+                id="assetValue-{{ i }}"
                 type="text"
                 class="form-control fs-3"
                 formControlName="value"
@@ -62,13 +62,13 @@
             </div>
 
             @if (assetForm.touched && assetForm.get('value')?.invalid) {
-              <label class="text-danger fs-4" for="assetValue"
+              <label class="text-danger fs-4" for="assetValue-{{ i }}"
                 >Please enter a valid currency</label
               >
             }
           </td>
 
-          <td class="align-middle" width="56px">
+          <td class="align-top" width="56px">
             @let shouldDisableButton = count === 1;
 
             <button
@@ -78,6 +78,7 @@
                   : 'btn-danger'
               "
               type="button"
+              aria-label="Delete asset"
               class="btn border rounded-circle btn-lg delete-asset"
               (click)="deleteAsset(i, row)"
               [disabled]="shouldDisableButton || isDeleteInProgress()"
