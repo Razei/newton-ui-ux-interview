@@ -25,7 +25,6 @@
     "@ngrx/signals": "^19.2.1",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
-    "ngx-mask": "^19.0.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
