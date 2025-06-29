@@ -69,18 +69,18 @@
           </td>
 
           <td class="vertical-align-middle" width="56px">
-            @let isOnlyRow = count === 1;
+            @let shouldDisableButton = count === 1 || isDeleteInProgress();
 
             <button
               [ngClass]="
-                isOnlyRow
+                shouldDisableButton
                   ? 'btn-newton-disabled text-newton-disabled-text'
                   : 'btn-danger'
               "
               type="button"
               class="btn border rounded-5 btn-md"
               (click)="deleteAsset(i, row)"
-              [disabled]="isOnlyRow"
+              [disabled]="shouldDisableButton"
             >
               <fa-icon
                 class="text-red"

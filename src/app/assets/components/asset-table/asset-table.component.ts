@@ -45,6 +45,7 @@ export class AssetTableComponent {
   readonly assetFormArray = computed(
     () => this.assetFormGroup()?.get('assets') as FormArray<AssetFormGroup>
   );
+  readonly isDeleteInProgress = signal(false);
 
   constructor(library: FaIconLibrary) {
     library.addIcons(faCirclePlus, faTrashCan);
@@ -55,10 +56,17 @@ export class AssetTableComponent {
   }
 
   deleteAsset(index: number, rowElement: HTMLTableRowElement) {
+    if (this.isDeleteInProgress()) {
+      return;
+    }
+
+    this.isDeleteInProgress.set(true);
+
     triggerDeleteAnimation(rowElement, 'delete-container', () => {
       // prevent deleting last item
       if (this.assetFormArray().length > 1) {
         this.assetFormArray()?.removeAt(index);
+        this.isDeleteInProgress.set(false);
         this.cdRef.markForCheck();
       }
     });
