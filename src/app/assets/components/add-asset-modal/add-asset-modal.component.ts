@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+} from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -28,6 +33,7 @@ export class AddAssetModalComponent {
   // #region Dependencies
   readonly activeModal = inject(NgbActiveModal);
   readonly assetStore = inject(AssetStore);
+  readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   // #endregion
 
   readonly assetForm = new FormGroup<AssetFormArray>(
@@ -48,6 +54,14 @@ export class AddAssetModalComponent {
   saveAssets() {
     if (this.assetForm.invalid) {
       this.assetForm.markAllAsTouched();
+
+      setTimeout(() => {
+        const errorEl =
+          this.elementRef.nativeElement.querySelector<HTMLElement>(
+            '.text-danger'
+          );
+        errorEl?.focus();
+      });
       return;
     }
 
