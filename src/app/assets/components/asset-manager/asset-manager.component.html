@@ -19,11 +19,11 @@
             <tbody formArrayName="assets">
               @for (
                 asset of assetStore.entities();
-                track $index;
+                track asset.id;
                 let i = $index;
                 let count = $count
               ) {
-                <tr>
+                <tr #rowElement class="insert-container">
                   <td class="py-3 ps-5">
                     {{ asset.type }}
                   </td>
@@ -36,7 +36,7 @@
                     <button
                       type="button"
                       class="btn btn-danger border rounded-circle btn-lg delete-asset"
-                      (click)="deleteAsset(asset.id)"
+                      (click)="deleteAsset(asset.id, rowElement)"
                     >
                       <fa-icon
                         class="text-red"
@@ -71,7 +71,7 @@
         </div>
       } @else {
         <div
-          class="asset-manager-empty-state h-100 d-flex gap-5 flex-column align-items-center justify-content-center"
+          class="asset-manager-empty-state h-100 d-flex gap-4 flex-column align-items-center justify-content-center insert-container"
         >
           <div
             class="d-flex gap-4 flex-column align-items-center justify-content-center"

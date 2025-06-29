@@ -1,6 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   inject,
   Injector,
@@ -11,6 +12,7 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import { faHandHoldingDollar } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { triggerDeleteAnimation } from '../../../utils/animation.utils';
 import { AssetStore } from '../../store/asset.store';
 import { AddAssetModalComponent } from '../add-asset-modal/add-asset-modal.component';
 
@@ -27,6 +29,7 @@ export class AssetManagerComponent {
   readonly modalService = inject(NgbModal);
   readonly injector = inject(Injector);
   readonly assetStore = inject(AssetStore);
+  private readonly cdRef = inject(ChangeDetectorRef);
   // #endregion
 
   constructor(library: FaIconLibrary) {
@@ -35,14 +38,15 @@ export class AssetManagerComponent {
 
   whenAddAssetsButtonClicked() {
     this.modalService.open(AddAssetModalComponent, {
-      scrollable: true,
       injector: this.injector,
       size: 'lg',
-      windowClass: 'asset-manager-modal',
     });
   }
 
-  deleteAsset(assetId: string) {
-    this.assetStore.removeAsset(assetId);
+  deleteAsset(assetId: string, rowElement: HTMLElement) {
+    triggerDeleteAnimation(rowElement, 'delete-container', () => {
+      this.assetStore.removeAsset(assetId);
+      this.cdRef.markForCheck();
+    });
   }
 }
