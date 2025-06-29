@@ -5,3 +5,7 @@ export type Asset = {
   type: string;
   value: Nullable<number>;
 };
+
+export type AssetUpsert = Omit<Asset, 'id'> & {
+  id?: Nullable<string>;
+};

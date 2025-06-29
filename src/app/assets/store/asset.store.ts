@@ -13,8 +13,7 @@ import {
   withEntities,
 } from '@ngrx/signals/entities';
 import { generateUUID } from '../../utils/id.utils';
-import { Nullable } from '../../utils/typescript.utils';
-import { Asset } from '../models/asset';
+import { Asset, AssetUpsert } from '../models/asset';
 
 export const AssetStore = signalStore(
   withState({
@@ -30,9 +29,7 @@ export const AssetStore = signalStore(
     addAsset(asset: Asset): void {
       patchState(store, addEntity(asset));
     },
-    upsertAssets(
-      assets: (Omit<Asset, 'id'> & { id: Nullable<string> })[]
-    ): void {
+    upsertAssets(assets: AssetUpsert[]): void {
       patchState(
         store,
         upsertEntities(
