@@ -40,4 +40,21 @@
       }
     }
   }
+
+  .insert-container {
+    opacity: 1;
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.5s ease-out;
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+  }
+
+  .delete-container {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
 }

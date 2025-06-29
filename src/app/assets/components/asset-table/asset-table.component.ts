@@ -1,24 +1,20 @@
 import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   computed,
   inject,
   input,
   signal,
 } from '@angular/core';
-import {
-  AbstractControl,
-  FormArray,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   FaIconComponent,
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 import { faCirclePlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { triggerDeleteAnimation } from '../../../utils/animation.utils';
 import { CurrencyMaskDirective } from '../../directives/currency-mask.directive';
 import { AssetStore } from '../../store/asset.store';
 import { createNewAssetFormGroup } from '../../utils/asset.utils';
@@ -41,6 +37,7 @@ import {
 export class AssetTableComponent {
   // #region Dependencies
   readonly assetStore = inject(AssetStore);
+  private readonly cdRef = inject(ChangeDetectorRef);
   // #endregion
 
   readonly tableColumns = signal(['Type', 'Value', '']);
@@ -57,18 +54,13 @@ export class AssetTableComponent {
     this.assetFormArray()?.push(createNewAssetFormGroup());
   }
 
-  deleteAsset(index: number) {
-    this.assetFormArray()?.removeAt(index);
-  }
-
-  whenAssetValueChanged(
-    arg0: AbstractControl<number | null, number | null> | null,
-    $event: InputEvent
-  ) {
-    console.log($event);
-    (arg0 as FormControl)?.setValue($event.detail, {
-      emitModelToViewChange: true,
-      emitViewToModelChange: true,
+  deleteAsset(index: number, rowElement: HTMLTableRowElement) {
+    triggerDeleteAnimation(rowElement, 'delete-container', () => {
+      // prevent deleting last item
+      if (this.assetFormArray().length > 1) {
+        this.assetFormArray()?.removeAt(index);
+        this.cdRef.markForCheck();
+      }
     });
   }
 }

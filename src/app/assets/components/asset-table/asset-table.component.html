@@ -1,5 +1,5 @@
 <form [formGroup]="assetFormGroup()" class="card rounded-3">
-  <table class="table table-striped rounded-3 overflow-hidden">
+  <table class="table table-striped rounded-3">
     <thead>
       <tr>
         @for (item of tableColumns(); track $index) {
@@ -9,13 +9,14 @@
     </thead>
 
     <tbody formArrayName="assets">
+      <!-- Need for loop to track a reference instead of an index for the animations to work properly -->
       @for (
         assetForm of assetFormArray().controls;
-        track $index;
+        track assetForm;
         let i = $index;
         let count = $count
       ) {
-        <tr [formGroupName]="i">
+        <tr #row [formGroupName]="i" class="insert-container">
           <td>
             <div class="input-group">
               @let isEmpty = !selectInput.value;
@@ -78,7 +79,7 @@
               "
               type="button"
               class="btn border rounded-5 btn-md"
-              (click)="deleteAsset(i)"
+              (click)="deleteAsset(i, row)"
               [disabled]="isOnlyRow"
             >
               <fa-icon
