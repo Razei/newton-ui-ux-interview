@@ -6,6 +6,7 @@ import {
   inject,
   OnInit,
   Renderer2,
+  signal,
 } from '@angular/core';
 
 /**
@@ -19,10 +20,10 @@ export class CurrencyMaskDirective implements OnInit {
   //#region Dependencies
   private readonly el = inject(ElementRef);
   private readonly renderer = inject(Renderer2);
-  private readonly decimalPipe = inject(DecimalPipe);
   //#endregion
 
   readonly currencyChars = new RegExp('[\,]', 'g');
+  readonly lastValue = signal('');
 
   ngOnInit() {
     this.format(this.el.nativeElement.value);
@@ -34,14 +35,28 @@ export class CurrencyMaskDirective implements OnInit {
   }
 
   format(val: string) {
+    if (!val || val === this.lastValue()) {
+      return;
+    }
+
+    const [integer, decimal] = val.replace(this.currencyChars, '').split('.');
     // 1. test for non-number characters and replace/remove them
-    const numberFormat = parseInt(String(val).replace(this.currencyChars, ''));
-    // console.log(numberFormat); // raw number
+    const formatter = new Intl.NumberFormat('en-US');
+    const currency = formatter.format(BigInt(integer));
 
-    // 2. format the number (add commas)
-    const currency = this.decimalPipe.transform(numberFormat, '1.2', 'en-US');
+    const parsedDecimal = parseFloat('0.' + decimal) ?? 0;
+    const roundedDecimal =
+      parsedDecimal > 0
+        ? parsedDecimal.toFixed(2).toString().split('0.')[1]
+        : '00';
 
-    // 3. replace the input value with formatted numbers
-    this.renderer.setProperty(this.el.nativeElement, 'value', currency);
+    // replace the input value with formatted numbers
+    this.renderer.setProperty(
+      this.el.nativeElement,
+      'value',
+      currency + '.' + roundedDecimal
+    );
+
+    this.lastValue.set(currency + '.' + roundedDecimal);
   }
 }
