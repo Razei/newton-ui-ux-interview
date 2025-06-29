@@ -7,13 +7,19 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import {
   FaIconComponent,
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 import { faCirclePlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { CurrencyMaskDirective } from '../../directives/currency-mask.directive';
 import { AssetStore } from '../../store/asset.store';
 import { createNewAssetFormGroup } from '../../utils/asset.utils';
 import {
@@ -22,11 +28,15 @@ import {
 } from '../add-asset-modal/add-asset-modal.component';
 @Component({
   selector: 'app-asset-table',
-  imports: [ReactiveFormsModule, FaIconComponent, NgxMaskDirective, NgClass],
+  imports: [
+    ReactiveFormsModule,
+    FaIconComponent,
+    NgClass,
+    CurrencyMaskDirective,
+  ],
   templateUrl: './asset-table.component.html',
   styleUrl: './asset-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideNgxMask()],
 })
 export class AssetTableComponent {
   // #region Dependencies
@@ -49,5 +59,16 @@ export class AssetTableComponent {
 
   deleteAsset(index: number) {
     this.assetFormArray()?.removeAt(index);
+  }
+
+  whenAssetValueChanged(
+    arg0: AbstractControl<number | null, number | null> | null,
+    $event: InputEvent
+  ) {
+    console.log($event);
+    (arg0 as FormControl)?.setValue($event.detail, {
+      emitModelToViewChange: true,
+      emitViewToModelChange: true,
+    });
   }
 }
