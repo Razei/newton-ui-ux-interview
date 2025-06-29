@@ -23,16 +23,16 @@
                 let i = $index;
                 let count = $count
               ) {
-                <tr #rowElement class="insert-container">
-                  <td class="py-3 ps-5">
+                <tr #rowElement class="insert-container align-middle">
+                  <td class="py-3 ps-5 align-middle">
                     {{ asset.type }}
                   </td>
 
-                  <td class="py-3 fw-bold">
+                  <td class="py-3 fw-bold align-middle text-align-middle">
                     {{ asset.value | currency }}
                   </td>
 
-                  <td class="vertical-align-middle py-3 pe-4">
+                  <td class="align-middle py-3 pe-4">
                     <button
                       type="button"
                       class="btn btn-danger border rounded-circle btn-lg delete-asset"
@@ -48,7 +48,7 @@
                 </tr>
               }
 
-              <tr class="border-top border-black">
+              <tr class="border-top border-black insert-container">
                 <td class="ps-5 py-4 bg-white">TOTAL VALUE</td>
                 <td class="py-4 bg-white fw-bold">
                   {{ assetStore.totalValue() | currency }}
