@@ -46,13 +46,13 @@ describe('CurrencyMaskDirective', () => {
     const inputElement = fixture.debugElement.query(By.css('input'))
       .nativeElement as HTMLInputElement;
 
-    inputElement.value = 'a21313';
+    inputElement.value = 'a21313a';
     inputElement.dispatchEvent(new Event('input'));
 
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(inputElement.value).toEqual('a21313');
+    expect(inputElement.value).toEqual('a21313a');
   });
 
   it('should format input to currency on blur', async () => {
