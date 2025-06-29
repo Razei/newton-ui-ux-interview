@@ -40,6 +40,21 @@ describe('CurrencyMaskDirective', () => {
     expect(inputElement.value).toEqual('');
   });
 
+  it('should ignore values when input is not a number', async () => {
+    const fixture = TestBed.createComponent(TestComponent);
+
+    const inputElement = fixture.debugElement.query(By.css('input'))
+      .nativeElement as HTMLInputElement;
+
+    inputElement.value = 'a21313';
+    inputElement.dispatchEvent(new Event('input'));
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(inputElement.value).toEqual('a21313');
+  });
+
   it('should format input to currency on blur', async () => {
     const fixture = TestBed.createComponent(TestComponent);
 
@@ -83,6 +98,21 @@ describe('CurrencyMaskDirective', () => {
     await fixture.whenStable();
 
     expect(inputElement.value).toEqual('1.35');
+  });
+
+  it('should add 0 for decimal only values', async () => {
+    const fixture = TestBed.createComponent(TestComponent);
+
+    const inputElement = fixture.debugElement.query(By.css('input'))
+      .nativeElement as HTMLInputElement;
+
+    inputElement.value = '.3549999999999998';
+    inputElement.dispatchEvent(new Event('input'));
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(inputElement.value).toEqual('0.35');
   });
 
   it('should output the same value if value is already formatted', async () => {

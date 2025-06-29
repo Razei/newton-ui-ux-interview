@@ -1,5 +1,6 @@
 import { DecimalPipe } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Directive,
   ElementRef,
   HostListener,
@@ -20,6 +21,7 @@ export class CurrencyMaskDirective implements OnInit {
   //#region Dependencies
   private readonly el = inject(ElementRef);
   private readonly renderer = inject(Renderer2);
+  private readonly cdRef = inject(ChangeDetectorRef);
   //#endregion
 
   readonly currencyChars = new RegExp('[\,]', 'g');
@@ -35,13 +37,20 @@ export class CurrencyMaskDirective implements OnInit {
   }
 
   format(val: string) {
-    if (!val || val === this.lastValue()) {
+    if (!val?.trim() || val.trim() === this.lastValue()) {
       return;
     }
 
     const [integer, decimal] = val.replace(this.currencyChars, '').split('.');
     // 1. test for non-number characters and replace/remove them
     const formatter = new Intl.NumberFormat('en-US');
+    // need to check before BigInt
+    const isNumber = Number(integer);
+
+    if (isNaN(isNumber)) {
+      return;
+    }
+
     const currency = formatter.format(BigInt(integer));
 
     const parsedDecimal = parseFloat('0.' + decimal) ?? 0;
@@ -57,6 +66,9 @@ export class CurrencyMaskDirective implements OnInit {
       currency + '.' + roundedDecimal
     );
 
+    this.el.nativeElement.dispatchEvent(new Event('input'));
+
     this.lastValue.set(currency + '.' + roundedDecimal);
+    this.cdRef.markForCheck();
   }
 }
