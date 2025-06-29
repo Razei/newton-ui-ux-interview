@@ -22,7 +22,7 @@ export const AssetStore = signalStore(
   withEntities<Asset>(),
   withComputed(({ entities }) => ({
     totalValue: computed(() =>
-      entities().reduce((acc, asset) => acc + (asset.value ?? 0), 0)
+      entities().reduce((acc, asset) => acc + (Number(asset.value) ?? 0), 0)
     ),
   })),
   withMethods((store) => ({

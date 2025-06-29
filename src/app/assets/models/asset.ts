@@ -3,7 +3,7 @@ import { Nullable } from '../../utils/typescript.utils';
 export type Asset = {
   id: string;
   type: string;
-  value: Nullable<number>;
+  value: Nullable<string>;
 };
 
 export type AssetUpsert = Omit<Asset, 'id'> & {
