@@ -22,7 +22,7 @@ export class CurrencyMaskDirective implements OnInit {
   private readonly decimalPipe = inject(DecimalPipe);
   //#endregion
 
-  readonly currencyChars = new RegExp('[\.,]', 'g');
+  readonly currencyChars = new RegExp('[\,]', 'g');
 
   ngOnInit() {
     this.format(this.el.nativeElement.value);
