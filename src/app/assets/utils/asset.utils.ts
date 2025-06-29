@@ -11,7 +11,7 @@ export const createNewAssetFormGroup = () => {
     value: new FormControl(null, {
       validators: [
         Validators.required,
-        Validators.pattern('^[0-9]*\.[0-9][0-9]$'),
+        Validators.pattern(/^([0-9]+(\.?[0-9]?[0-9]?)?)/),
       ],
     }),
   });
