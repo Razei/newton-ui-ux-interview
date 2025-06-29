@@ -3,7 +3,7 @@
     <thead>
       <tr>
         @for (item of tableColumns(); track $index) {
-          <th scope="col">{{ item }}</th>
+          <th scope="col" class="fs-4">{{ item }}</th>
         }
       </tr>
     </thead>
@@ -17,14 +17,14 @@
         let count = $count
       ) {
         <tr #row [formGroupName]="i" class="insert-container">
-          <td>
+          <td style="width: 50%">
             <div class="input-group">
               @let isEmpty = !selectInput.value;
 
               <select
                 #selectInput
                 id="assetType"
-                class="form-select"
+                class="form-select fs-3"
                 [ngClass]="{ 'default-select': isEmpty }"
                 aria-label="Asset Type"
                 formControlName="type"
@@ -41,20 +41,20 @@
             @if (
               assetForm.get('type')?.hasError('required') && assetForm.touched
             ) {
-              <label class="text-danger" for="assetType"
+              <label class="text-danger fs-4" for="assetType"
                 >Please select a type</label
               >
             }
           </td>
 
-          <td>
+          <td style="width: 50%">
             <div class="input-group">
               <!-- There is a bug with bg -->
-              <span class="input-group-text bg-newton-disabled">$</span>
+              <span class="input-group-text bg-newton-disabled fs-3">$</span>
               <input
                 id="assetValue"
                 type="text"
-                class="form-control"
+                class="form-control fs-3"
                 formControlName="value"
                 maskCurrency
                 ngDefaultControl
@@ -62,7 +62,7 @@
             </div>
 
             @if (assetForm.touched && assetForm.get('value')?.invalid) {
-              <label class="text-danger" for="assetValue"
+              <label class="text-danger fs-4" for="assetValue"
                 >Please enter a valid currency</label
               >
             }
@@ -78,14 +78,14 @@
                   : 'btn-danger'
               "
               type="button"
-              class="btn border rounded-5 btn-md"
+              class="btn border rounded-circle btn-lg delete-asset"
               (click)="deleteAsset(i, row)"
               [disabled]="shouldDisableButton || isDeleteInProgress()"
             >
               <fa-icon
                 class="text-red"
                 [icon]="['fas', 'trash-can']"
-                size="sm"
+                size="lg"
               ></fa-icon>
             </button>
           </td>
@@ -97,7 +97,7 @@
   <div class="d-flex justify-content-end">
     <button
       type="button"
-      class="btn btn-link text-decoration-none text-newton-green fw-bold gap-2 d-flex align-items-center mb-3 me-3"
+      class="btn btn-link btn-lg fs-4 text-decoration-none text-newton-green fw-bold gap-2 d-flex align-items-center mb-3 me-3"
       (click)="addEmptyAsset()"
     >
       <fa-icon
