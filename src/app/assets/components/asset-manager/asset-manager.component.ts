@@ -40,6 +40,7 @@ export class AssetManagerComponent {
     this.modalService.open(AddAssetModalComponent, {
       injector: this.injector,
       size: 'lg',
+      windowClass: 'add-asset-modal',
     });
   }
 

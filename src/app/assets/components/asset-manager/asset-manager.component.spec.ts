@@ -69,13 +69,13 @@ describe('AssetManagerComponent', () => {
     const expectedElement = {
       id: generateUUID(),
       type: 'Gift',
-      value: 100,
+      value: '100',
     };
 
     const expectedElement2 = {
       id: generateUUID(),
       type: 'RRSP',
-      value: 200,
+      value: '200',
     };
 
     assetStore.upsertAssets([expectedElement, expectedElement2]);
@@ -90,7 +90,7 @@ describe('AssetManagerComponent', () => {
 
     const valueCell = queryByTextContent(
       fixture.debugElement,
-      currencyPipe.transform(expectedElement.value.toString()) ?? ''
+      currencyPipe.transform(expectedElement.value) ?? ''
     );
 
     const cell2 = queryByTextContent(
@@ -100,13 +100,15 @@ describe('AssetManagerComponent', () => {
 
     const valueCell2 = queryByTextContent(
       fixture.debugElement,
-      currencyPipe.transform(expectedElement2.value.toString()) ?? ''
+      currencyPipe.transform(expectedElement2.value) ?? ''
     );
 
     const total = queryByTextContent(
       fixture.debugElement,
       currencyPipe.transform(
-        (expectedElement.value + expectedElement2.value).toString()
+        (
+          Number(expectedElement.value) + Number(expectedElement2.value)
+        ).toString()
       ) ?? ''
     );
 
@@ -125,13 +127,13 @@ describe('AssetManagerComponent', () => {
     const expectedElement = {
       id: generateUUID(),
       type: 'Gift',
-      value: 100,
+      value: '100',
     };
 
     const expectedElement2 = {
       id: generateUUID(),
       type: 'RRSP',
-      value: 200,
+      value: '200',
     };
 
     assetStore.upsertAssets([expectedElement, expectedElement2]);
@@ -142,7 +144,9 @@ describe('AssetManagerComponent', () => {
     const total = queryByTextContent(
       fixture.debugElement,
       currencyPipe.transform(
-        (expectedElement.value + expectedElement2.value).toString()
+        (
+          Number(expectedElement.value) + Number(expectedElement2.value)
+        ).toString()
       ) ?? ''
     );
 
@@ -154,7 +158,7 @@ describe('AssetManagerComponent', () => {
     await fixture.whenStable();
 
     expect(total.nativeElement.textContent.trim()).toEqual(
-      currencyPipe.transform(expectedElement.value.toString())
+      currencyPipe.transform(expectedElement.value)
     );
   });
 
@@ -166,7 +170,7 @@ describe('AssetManagerComponent', () => {
     const expectedElement = {
       id: generateUUID(),
       type: 'Gift',
-      value: 100,
+      value: '100',
     };
 
     assetStore.upsertAssets([expectedElement]);
@@ -176,7 +180,7 @@ describe('AssetManagerComponent', () => {
 
     const total = queryByTextContent(
       fixture.debugElement,
-      currencyPipe.transform(expectedElement.value.toString()) ?? ''
+      currencyPipe.transform(expectedElement.value) ?? ''
     );
 
     expect(total).toBeTruthy();
