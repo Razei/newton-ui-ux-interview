@@ -69,7 +69,7 @@
           </td>
 
           <td class="vertical-align-middle" width="56px">
-            @let shouldDisableButton = count === 1 || isDeleteInProgress();
+            @let shouldDisableButton = count === 1;
 
             <button
               [ngClass]="
@@ -80,7 +80,7 @@
               type="button"
               class="btn border rounded-5 btn-md"
               (click)="deleteAsset(i, row)"
-              [disabled]="shouldDisableButton"
+              [disabled]="shouldDisableButton || isDeleteInProgress()"
             >
               <fa-icon
                 class="text-red"
