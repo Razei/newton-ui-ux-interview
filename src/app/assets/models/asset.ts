@@ -1,4 +1,4 @@
-import { Nullable } from '../../utils/typescript.utils';
+import { Nullable } from '../../utils/typescript/typescript.utils';
 
 export type Asset = {
   id: string;

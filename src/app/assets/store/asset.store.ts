@@ -12,7 +12,7 @@ import {
   upsertEntities,
   withEntities,
 } from '@ngrx/signals/entities';
-import { generateUUID } from '../../utils/id.utils';
+import { generateUUID } from '../../utils/id/id.utils';
 import { Asset, AssetUpsert } from '../models/asset';
 
 export const AssetStore = signalStore(

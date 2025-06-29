@@ -1,4 +1,5 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { isNaNValidator } from '../../utils/validators/validators.utils';
 import { AssetControls } from '../components/add-asset-modal/add-asset-modal.component';
 
 export const createNewAssetFormGroup = () => {
@@ -9,10 +10,7 @@ export const createNewAssetFormGroup = () => {
       validators: [Validators.required],
     }),
     value: new FormControl(null, {
-      validators: [
-        Validators.required,
-        Validators.pattern(/^([0-9]+(\.?[0-9]?[0-9]?)?)/),
-      ],
+      validators: [Validators.required, isNaNValidator],
     }),
   });
 };

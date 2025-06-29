@@ -14,7 +14,7 @@ import {
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 import { faCirclePlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { triggerDeleteAnimation } from '../../../utils/animation.utils';
+import { triggerDeleteAnimation } from '../../../utils/animation/animation.utils';
 import { CurrencyMaskDirective } from '../../directives/currenct-mask/currency-mask.directive';
 import { AssetStore } from '../../store/asset.store';
 import { createNewAssetFormGroup } from '../../utils/asset.utils';

@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import { faHandHoldingDollar } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { triggerDeleteAnimation } from '../../../utils/animation.utils';
+import { triggerDeleteAnimation } from '../../../utils/animation/animation.utils';
 import { AssetStore } from '../../store/asset.store';
 import { AddAssetModalComponent } from '../add-asset-modal/add-asset-modal.component';
 

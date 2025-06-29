@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import { faHandHoldingDollar } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Nullable } from '../../../utils/typescript.utils';
+import { Nullable } from '../../../utils/typescript/typescript.utils';
 import { AssetUpsert } from '../../models/asset';
 import { AssetStore } from '../../store/asset.store';
 import { createNewAssetFormGroup } from '../../utils/asset.utils';
