@@ -1,13 +1,15 @@
 <form [formGroup]="assetForm" (ngSubmit)="saveAssets()" class="card rounded-3">
-  <div class="modal-header">
-    <div class="modal-title d-flex align-items-center gap-3">
+  <div class="modal-header border-bottom border-black">
+    <div
+      class="modal-title d-flex align-items-center justify-content-center gap-3"
+    >
       <fa-icon
         class="text-newton-green"
         [icon]="['fas', 'hand-holding-dollar']"
-        size="2x"
+        size="3x"
       ></fa-icon>
 
-      <h4 class="fw-bold m-0 fs-5">Add Assets</h4>
+      <h4 class="fw-bold m-0 fs-3">Add Assets</h4>
     </div>
 
     <button
@@ -25,7 +27,7 @@
   <div class="modal-footer d-flex justify-content-between">
     <button
       type="button"
-      class="btn btn-outline-dark fw-bold rounded-5 col-2"
+      class="btn btn-outline-dark fw-bold rounded-5 px-5 py-3 btn-lg fs-4"
       (click)="activeModal.close('Close click')"
     >
       Close
@@ -33,7 +35,7 @@
 
     <button
       type="submit"
-      class="btn btn-outline-newton-green fw-bold rounded-5 col-2"
+      class="btn btn-outline-newton-green fw-bold rounded-5 px-5 py-3 btn-lg fs-4"
     >
       Save
     </button>

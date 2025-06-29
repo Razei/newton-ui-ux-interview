@@ -63,7 +63,7 @@ export class AddAssetModalComponent {
   convertFormValueToAsset(asset: AssetControlsValue): AssetUpsert {
     return {
       ...asset,
-      value: Number(asset.value?.replace(/[^0-9]g/, '')),
+      value: asset.value?.replace(/[\,]/g, ''),
     };
   }
 }

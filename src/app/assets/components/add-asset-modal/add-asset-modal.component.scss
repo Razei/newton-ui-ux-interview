@@ -1,13 +1,33 @@
 :host {
   display: block;
-  $padding: 1.25rem;
+  $padding: 2rem;
 
   .modal-header {
-    --bs-modal-header-padding: #{$padding};
+    --bs-modal-header-padding: calc(#{$padding} * 0.75);
+    --bs-border-opacity: 0.75;
   }
 
   .modal-body,
   .modal-footer {
     --bs-modal-padding: #{$padding};
+  }
+}
+
+::ng-deep .add-asset-modal .modal-dialog {
+  max-width: 1078px;
+  margin: var(--bs-modal-margin);
+
+  .modal-header {
+    .btn-close {
+      opacity: 1;
+      background: transparent var(--bs-btn-close-bg) center / 27px auto
+        no-repeat;
+
+      margin-inline-end: calc(var(--bs-modal-header-padding-y) * 0.25);
+    }
+  }
+
+  @media (min-width: 1078px) {
+    margin: var(--bs-modal-margin) auto;
   }
 }
