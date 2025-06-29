@@ -12,6 +12,7 @@ import {
 import { faHandHoldingDollar } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Nullable } from '../../../utils/typescript.utils';
+import { AssetUpsert } from '../../models/asset';
 import { AssetStore } from '../../store/asset.store';
 import { createNewAssetFormGroup } from '../../utils/asset.utils';
 import { AssetTableComponent } from '../asset-table/asset-table.component';
@@ -52,9 +53,18 @@ export class AddAssetModalComponent {
 
     const value = this.assetForm.getRawValue();
 
-    this.assetStore.upsertAssets(value.assets);
+    this.assetStore.upsertAssets(
+      value.assets.map((asset) => this.convertFormValueToAsset(asset))
+    );
 
     this.activeModal.close('Close click');
+  }
+
+  convertFormValueToAsset(asset: AssetControlsValue): AssetUpsert {
+    return {
+      ...asset,
+      value: Number(asset.value?.replace(/[^0-9]g/, '')),
+    };
   }
 }
 
@@ -70,5 +80,13 @@ export type AssetControls = {
    */
   id: FormControl<Nullable<string>>;
   type: FormControl<string>;
-  value: FormControl<number | null>;
+  /**
+   * Value needs to be a string to support currency formatting in the input.
+   * Convert back to number for the store when submitting.
+   */
+  value: FormControl<string | null>;
 };
+
+export type AssetControlsValue = ReturnType<
+  FormGroup<AssetControls>['getRawValue']
+>;
