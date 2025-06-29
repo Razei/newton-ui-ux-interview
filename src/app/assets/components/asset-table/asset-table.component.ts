@@ -40,12 +40,17 @@ export class AssetTableComponent {
   private readonly cdRef = inject(ChangeDetectorRef);
   // #endregion
 
-  readonly tableColumns = signal(['Type', 'Value', '']);
+  // #region Input
   readonly assetFormGroup = input.required<FormGroup<AssetFormArray>>();
+  // #endregion
+
+  // #region Reactive properties
+  readonly tableColumns = signal(['Type', 'Value', '']);
   readonly assetFormArray = computed(
     () => this.assetFormGroup()?.get('assets') as FormArray<AssetFormGroup>
   );
   readonly isDeleteInProgress = signal(false);
+  // #endregion
 
   constructor(library: FaIconLibrary) {
     library.addIcons(faCirclePlus, faTrashCan);

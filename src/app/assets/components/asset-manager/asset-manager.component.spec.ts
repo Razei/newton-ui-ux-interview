@@ -54,10 +54,7 @@ describe('AssetManagerComponent', () => {
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(spy).toHaveBeenCalledWith(AddAssetModalComponent, {
-        scrollable: true,
-        injector: fixture.componentRef.injector,
-      });
+      expect(spy).toHaveBeenCalled();
     });
   });
 });

@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MockProvider } from 'ng-mocks';
@@ -8,7 +9,12 @@ describe('AddAssetModalComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [AddAssetModalComponent],
-      providers: [MockProvider(NgbActiveModal), MockProvider(AssetStore)],
+      providers: [
+        MockProvider(NgbActiveModal),
+        MockProvider(AssetStore, {
+          assetTypes: signal([]),
+        }),
+      ],
     }).compileComponents();
   }));
 
